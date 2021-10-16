@@ -11,7 +11,7 @@ class App extends Component {
 	};
 
 	componentDidMount() {
-		axios.get('http://35.81.33.164').then(response => {
+		axios.get('https://ucapphealth.com').then(response => {
 			//  {
 			// 		"id": 21,
 			// 		"title": "test app",
