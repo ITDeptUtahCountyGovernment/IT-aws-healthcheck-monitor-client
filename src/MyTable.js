@@ -1,6 +1,8 @@
 import React from "react";
+import { BsGithub } from "react-icons/bs";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import "./MyTable.css";
 
 function MyTable(props) {
   if (!props.data || props.data.length === 0) {
@@ -15,7 +17,7 @@ function MyTable(props) {
       <Thead>
         <Tr key="0">
           {Object.keys(props.data[0]).map((header) => {
-            if (header !== "url") {
+            if (header !== "url" && header !== "id") {
               return <Th>{header}</Th>;
             }
             return <div></div>;
@@ -30,7 +32,9 @@ function MyTable(props) {
                 if (column === "repo") {
                   return (
                     <Td>
-                      <a href={entry[column]}>repo</a>
+                      <a href={entry[column]}>
+                        <BsGithub /> repo
+                      </a>
                     </Td>
                   );
                 } else if (column === "status") {
@@ -44,10 +48,14 @@ function MyTable(props) {
                 } else if (column === "title") {
                   return (
                     <Td>
-                      <a href={entry.url}>{entry.title}</a>
+                      <a className="title" href={entry.url}>
+                        {entry.title}
+                      </a>
                     </Td>
                   );
                 } else if (column === "url") {
+                  return <div></div>;
+                } else if (column === "id") {
                   return <div></div>;
                 } else {
                   return <Td>{entry[column]}</Td>;
