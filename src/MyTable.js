@@ -7,14 +7,14 @@ function MyTable(props) {
 		return <p>There was no data returned from the server, this is likely an error.</p>;
 	}
 	return (
-		<Table>
+		<Table border="1">
 			<Thead>
 				<Tr key="0" >
 					{Object.keys(props.data[0]).map(header => {
 						if (header !== 'url') {
 							return <Th>{header}</Th>;
 						}
-						return '';
+						return <div></div>;
 					})}
 				</Tr>
 			</Thead>
@@ -44,11 +44,11 @@ function MyTable(props) {
 										</Td>
 									);
 								} else if (column === 'url') {
-									return '';
+									return <div></div>;
 								} else {
 									return <Td>{entry[column]}</Td>;
 								}
-								return <Td></Td>
+								return <div></div>
 							})}
 						</Tr>
 					);
