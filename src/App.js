@@ -1,5 +1,6 @@
 import "./App.css";
 import React, { Component } from "react";
+import { BsGithub } from "react-icons/bs";
 import axios from "axios";
 import MyTable from "./MyTable";
 
@@ -36,7 +37,13 @@ class App extends Component {
   }
 
   render() {
-    return <MyTable data={this.state.data} />;
+    return (
+      <div>
+        <h1>UC App Health</h1>
+        <MyTable data={this.state.data} />
+        <p><a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues"><BsGithub /> Report an Issue</a></p>
+      </div>
+    );
   }
 }
 
