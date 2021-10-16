@@ -5,6 +5,8 @@ Site Deployed [here](https://aws-healthcheck-monitor-uc.netlify.app/)
 
 This is a JAM stack deployed frontend which calls a node backend hosted at an elastic IP on aws. See these other repos [server](https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-server) and [ping script](https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-ping)
 
+Uses straight forward [responsive tables](https://reactjsexample.com/react-super-responsive-table-converts-your-table-data-to-a-user-friendly-list-in-mobile-view/)
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
