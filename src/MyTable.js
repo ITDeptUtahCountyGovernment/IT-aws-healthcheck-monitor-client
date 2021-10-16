@@ -30,7 +30,7 @@ function MyTable(props) {
                 if (column === "repo") {
                   return (
                     <Td>
-                      <a href="{entry[column]}">repo</a>
+                      <a href={entry[column]}>repo</a>
                     </Td>
                   );
                 } else if (column === "status") {
@@ -44,7 +44,7 @@ function MyTable(props) {
                 } else if (column === "title") {
                   return (
                     <Td>
-                      <a href="{entry.url}">{entry[column]}</a>
+                      <a href={entry.url}>{entry.title}</a>
                     </Td>
                   );
                 } else if (column === "url") {

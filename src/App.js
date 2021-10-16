@@ -41,7 +41,11 @@ class App extends Component {
       <div>
         <h1>UC App Health</h1>
         <MyTable data={this.state.data} />
-        <p><a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues"><BsGithub /> Report an Issue</a></p>
+        <p>
+          <a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
+            <BsGithub /> Report an Issue
+          </a>
+        </p>
       </div>
     );
   }
