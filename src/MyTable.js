@@ -48,6 +48,7 @@ function MyTable(props) {
 								} else {
 									return <Td>{entry[column]}</Td>;
 								}
+								return <Td></Td>
 							})}
 						</Tr>
 					);
