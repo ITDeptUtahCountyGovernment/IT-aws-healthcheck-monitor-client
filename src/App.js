@@ -22,8 +22,6 @@ class App extends Component {
       // 		"statusCode": 404,
       // 		"error": "Request failed with status code 404"
       // },
-      response.data.data[13].statusCode = '200';
-      response.data.data[13].error = 'timeout of 30000ms exceeded - timeout of 30000ms exceeded';
       response.data.data.map((entry) => {
         entry.status = entry.status === null ? "GOOD" : "FAILURE";
         if (entry.error && entry.error.includes("timeout of 30000ms exceeded")) entry.status = "WARNING";
