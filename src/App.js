@@ -29,8 +29,8 @@ class App extends Component {
 
       this.setState({
         data: response.data.data,
-        syslog: response.data.syslog, //.split('\n'),
-        syslogerr: response.data.syslogerr, //.split('\n'),
+        syslog: response.data.syslog,
+        syslogerr: response.data.syslogerr,
       });
     });
   }
