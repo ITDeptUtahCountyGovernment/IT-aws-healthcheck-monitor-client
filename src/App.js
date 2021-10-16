@@ -4,6 +4,7 @@ import { BsGithub } from "react-icons/bs";
 import axios from "axios";
 // import MyTable from "./MyTable";
 import Status from "./Status";
+import Syslog from "./Syslog";
 
 class App extends Component {
   state = {
@@ -42,13 +43,13 @@ class App extends Component {
     return (
       <div>
         <h1>UC App Health</h1>
-        {/* <MyTable data={this.state.data} /> */}
-        <Status data={this.state.data} />
         <p>
           <a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
             <BsGithub /> Report an Issue
           </a>
         </p>
+        <Status data={this.state.data} />
+        <Syslog syslog={this.state.syslog} syslogerr={this.state.syslogerr} />
       </div>
     );
   }
