@@ -39,11 +39,11 @@ function MyTable(props) {
                   );
                 } else if (column === "status") {
                   if (entry[column] === "GOOD") {
-                    return <Td>🟢</Td>;
+                    return <Td className="title">🟢</Td>;
                   } else if (entry[column] === "WARNING") {
-                    return <Td>🟡</Td>;
+                    return <Td className="title">🟡</Td>;
                   } else if (entry[column] === "FAILURE") {
-                    return <Td>🔴</Td>;
+                    return <Td className="title">🔴</Td>;
                   }
                 } else if (column === "title") {
                   return (
