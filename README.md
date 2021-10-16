@@ -1,5 +1,6 @@
 # IT-aws-healthcheck-monitor-client
 [![Netlify Status](https://api.netlify.com/api/v1/badges/c0f8b71f-f7c5-4e2f-83b5-b33a9ee6b3df/deploy-status)](https://app.netlify.com/sites/aws-healthcheck-monitor-uc/deploys)
+(You need to be signed into GitHub and Netlify as GitHub user `appdeploy@utahcounty.gov` in order to configure the netlify site)
 
 Site Deployed [here](https://aws-healthcheck-monitor-uc.netlify.app/) 
 
