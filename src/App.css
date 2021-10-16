@@ -13,6 +13,26 @@
   }
 }
 
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: #0b1d1d;
+		color: #C7C7C7;
+	}
+	a {
+		color: #40CECC;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: #e1ffff;
+		color: #0c0c0c;
+	}
+	a {
+		color: #042929;
+	}
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
