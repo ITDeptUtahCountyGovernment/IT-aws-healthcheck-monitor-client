@@ -13,7 +13,7 @@ function MyTable(props) {
     );
   }
   return (
-    <Table border="1">
+    <Table>
       <Thead>
         <Tr key="0">
           {Object.keys(props.data[0]).map((header) => {
