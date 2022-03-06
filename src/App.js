@@ -2,9 +2,8 @@ import "./App.css";
 import React, { Component } from "react";
 import { BsGithub } from "react-icons/bs";
 import axios from "axios";
-// import MyTable from "./MyTable";
-import Status from "./Status";
-import Syslog from "./Syslog";
+import StatusCollection from "./components/StatusCollection";
+import Syslog from "./components/Syslog";
 
 class App extends Component {
   state = {
@@ -15,15 +14,6 @@ class App extends Component {
 
   componentDidMount() {
     axios.get("https://ucapphealth.com").then((response) => {
-      //  {
-      // 		"id": 21,
-      // 		"title": "test app",
-      // 		"url": "https://pawnle.utahcounty.gov/app/api/healthcheck/bad/endpoint",
-      // 		"notes": null,
-      // 		"repo": null,
-      // 		"statusCode": 404,
-      // 		"error": "Request failed with status code 404"
-      // },
       response.data.data.map((entry) => {
         entry.status = entry.status === null ? "GOOD" : "FAILURE";
         if (entry.error && entry.error.includes("timeout of 30000ms exceeded"))
@@ -41,14 +31,16 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>UC App Health</h1>
         <p>
+          {" "}
+          Tap an app for details and{" "}
           <a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
-            <BsGithub /> Report an Issue
+            report any issues <BsGithub className="small-icon" />
           </a>
         </p>
-        <Status data={this.state.data} />
+        <StatusCollection data={this.state.data} />
         <Syslog syslog={this.state.syslog} syslogerr={this.state.syslogerr} />
       </div>
     );

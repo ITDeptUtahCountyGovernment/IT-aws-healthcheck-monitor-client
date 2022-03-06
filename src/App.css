@@ -14,23 +14,27 @@
 }
 
 @media (prefers-color-scheme: dark) {
-	body {
-		background-color: #0b1d1d;
-		color: #C7C7C7;
-	}
-	a {
-		color: #40CECC;
-	}
+  body {
+    background-color: #0b1d1d;
+    /* color: #c7c7c7; */
+    color: #40cecc;
+  }
+  a {
+    color: #40cecc;
+  }
+  p {
+    color: #40cecc;
+  }
 }
 
 @media (prefers-color-scheme: light) {
-	body {
-		background-color: #e1ffff;
-		color: #0c0c0c;
-	}
-	a {
-		color: #042929;
-	}
+  body {
+    background-color: #e1ffff;
+    color: #0c0c0c;
+  }
+  a {
+    color: #042929;
+  }
 }
 
 .App-header {
@@ -55,4 +59,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  padding: 1em;
+}
+
+.small-icon {
+  font-size: 70%;
 }
