@@ -1,11 +1,29 @@
 import React from "react";
-import CodeBlock from "./CodeBlock";
+import { CodeBlock, dracula } from "react-code-blocks";
 
 function Syslog(props) {
   return (
     <div>
-      <CodeBlock content={props.syslog} title="Stdout" />
-      <CodeBlock content={props.syslogerr} title="Stderr" />
+      <h2>Stdout</h2>
+      <CodeBlock
+        text={props.syslog}
+        language="bash"
+        theme={dracula}
+        customStyle={{
+          height: "150px",
+          overflow: "scroll",
+        }}
+      />
+      <h2>Stderr</h2>
+      <CodeBlock
+        text={props.syslogerr}
+        language="bash"
+        theme={dracula}
+        customStyle={{
+          height: "150px",
+          overflow: "scroll",
+        }}
+      />
     </div>
   );
 }

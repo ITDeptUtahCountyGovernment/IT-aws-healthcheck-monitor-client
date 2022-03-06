@@ -50,10 +50,10 @@ class Status extends Component {
               this.setState({ showDetails: false });
             }}
           >
-            <div className="title">
+            <span className="title">
               <span>{this.getStatusIcon()}</span>{" "}
               <span>{this.state.entry.title}</span>
-            </div>
+            </span>
             <span>{this.state.entry.statusCode} </span>
             <span>{this.state.entry.error} </span>
           </p>
@@ -97,10 +97,10 @@ class Status extends Component {
               this.setState({ showDetails: true });
             }}
           >
-            <div className="title">
+            <span className="title">
               <span>{this.getStatusIcon()}</span>{" "}
               <span>{this.state.entry.title}</span>
-            </div>
+            </span>
             <span>{this.state.entry.statusCode} </span>
             <span>{this.state.entry.error} </span>
           </p>
