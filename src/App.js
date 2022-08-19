@@ -38,8 +38,10 @@ class App extends Component {
           Tap an app for details and{" "}
           <a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
             report any issues <BsGithub className="small-icon" />
-          </a>
+          </a>{" "}
+          Download <a href="http://ucapphealth.com/db.sqlite">db.sqlite</a>
         </p>
+
         <StatusCollection data={this.state.data} />
         <Syslog syslog={this.state.syslog} syslogerr={this.state.syslogerr} />
       </div>
