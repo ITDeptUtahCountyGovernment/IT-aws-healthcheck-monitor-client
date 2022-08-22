@@ -41,6 +41,10 @@ class Status extends Component {
   }
 
   render() {
+    let extraNotes = <></>;
+    if (this.state.entry.notes) {
+      extraNotes = <li>Extra notes: {this.state.entry.notes}</li>;
+    }
     if (this.state.showDetails) {
       // more detailed view
       return (
@@ -67,6 +71,10 @@ class Status extends Component {
               </li>
               <li>
                 {this.state.entry.name} - {this.state.entry.lead}
+                (x{this.state.entry.ext}){" "}
+                <a href="mailto:{this.state.entry.email}">
+                  {this.state.entry.email}
+                </a>
               </li>
               <li>
                 View the repo on{" "}
@@ -79,11 +87,7 @@ class Status extends Component {
                 See the targeted endpoint{" "}
                 <a href={this.state.entry.url}>here</a>.
               </li>
-              <li>
-                {this.state.entry.notes
-                  ? this.state.entry.notes
-                  : "No other notes."}
-              </li>
+              {extraNotes}
             </ul>
           </div>
         </div>
