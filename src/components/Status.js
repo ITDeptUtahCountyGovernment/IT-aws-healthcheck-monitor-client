@@ -23,20 +23,20 @@ const Status = props => {
 		return `${months[since.getMonth()]} ${since.getDate()} ${since.getFullYear()}`;
 	};
 
-	if (showDetails) {
-		// more detailed view
-		return (
-			<div>
-				<p
-					onClick={() => {
-						setShowDetails(false);
-					}}>
-					<span className="title">
-						<span>{getStatusIcon()}</span> <span>{entry.title}</span>
-					</span>
-					<span>{entry.statusCode} </span>
-					<span>{entry.error} </span>
-				</p>
+	const toggleDetails = () => {
+		setShowDetails(showDetails ? false : true);
+	};
+
+	return (
+		<div>
+			<p onClick={toggleDetails}>
+				<span className="title">
+					<span>{getStatusIcon()}</span> <span>{entry.title}</span>
+				</span>
+				<span>{entry.statusCode} </span>
+				<span>{entry.error} </span>
+			</p>
+			{showDetails && (
 				<div className="details">
 					<ul>
 						<li>
@@ -59,25 +59,9 @@ const Status = props => {
 						{entry.notes ? <li>Extra notes: {entry.notes}</li> : <></>}
 					</ul>
 				</div>
-			</div>
-		);
-	} else {
-		// less detailed view
-		return (
-			<div>
-				<p
-					onClick={() => {
-						setShowDetails(true);
-					}}>
-					<span className="title">
-						<span>{getStatusIcon()}</span> <span>{entry.title}</span>
-					</span>
-					<span>{entry.statusCode} </span>
-					<span>{entry.error} </span>
-				</p>
-			</div>
-		);
-	}
+			)}
+		</div>
+	);
 };
 
 export default Status;

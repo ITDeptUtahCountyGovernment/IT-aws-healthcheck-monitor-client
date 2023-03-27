@@ -22,7 +22,7 @@ const App = () => {
 			setSyslog(response.data.syslog);
 			setSyslogerr(response.data.syslogerr);
 		});
-	});
+	}, [data]);
 
 	return (
 		<div className="container">
