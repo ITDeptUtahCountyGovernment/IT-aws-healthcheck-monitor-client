@@ -64,7 +64,7 @@ class Status extends Component {
           <div className="details">
             <ul>
               <li>
-                {this.state.entry.uptime}% uptime{" "}
+                {this.state.entry.uptime.toFixed(3)}% uptime{" "}
                 <span className="small-text">
                   (since {this.getSince(this.state.entry.uptimeTrackingStart)})
                 </span>
