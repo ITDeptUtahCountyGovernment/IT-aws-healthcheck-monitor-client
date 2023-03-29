@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BsGithub } from 'react-icons/bs';
+import { BiLink } from 'react-icons/bi';
 import { months } from '../utils/utils.js';
-import './Status.css';
 const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 
 const Status = props => {
@@ -9,12 +9,13 @@ const Status = props => {
 	const [showDetails, setShowDetails] = useState(false);
 
 	const getStatusIcon = () => {
-		if (entry.status === 'GOOD') {
-			return '🟢';
-		} else if (entry.status === 'WARNING') {
-			return '⚠️';
-		} else if (entry.status === 'FAILURE') {
-			return '⛔️';
+		switch (entry.status) {
+			case 'GOOD':
+				return '🟢 ';
+			case 'WARNING':
+				return '⚠️';
+			case 'FAILURE':
+				return '⛔️';
 		}
 	};
 
@@ -28,39 +29,32 @@ const Status = props => {
 	};
 
 	return (
-		<div>
-			<p onClick={toggleDetails}>
-				<span className="title">
-					<span>{getStatusIcon()}</span> <span>{entry.title}</span>
-				</span>
-				<span>{entry.statusCode} </span>
-				<span>{entry.error} </span>
-			</p>
-			{showDetails && (
-				<div className="details">
-					<ul>
-						<li>
-							{entry.uptime}% uptime <span className="small-text">(since {getSince(entry.uptimeTrackingStart)})</span>
-						</li>
-						<li>
-							{entry.name} - {entry.lead}
-							(x{entry.ext}) <a href="mailto:{this.state.entry.email}">{entry.email}</a>
-						</li>
-						<li>
-							View the repo on{' '}
-							<a href={entry.repo}>
-								GitHub <BsGithub className="small-icon" />
-							</a>
-							.
-						</li>
-						<li>
-							See the targeted endpoint <a href={entry.url}>here</a>.
-						</li>
-						{entry.notes ? <li>Extra notes: {entry.notes}</li> : <></>}
-					</ul>
+		<tr className="bg-white hover:bg-slate-50 dark:border-gray-700 dark:bg-gray-800">
+			<td>{entry.title}</td>
+			<td>{getStatusIcon()}</td>
+			<td className="flex flex-col">
+				<div id="percentBar" className="h-2 w-full bg-red-700">
+					<div className="mr-2 h-full bg-green-200 px-2" style={{ width: entry.uptime + '%' }}></div>
 				</div>
-			)}
-		</div>
+				<p className="text-sm">
+					{entry.uptime.toFixed(2)}% since {getSince(entry.uptimeTrackingStart)}
+				</p>
+			</td>
+			<td>
+				<div className="flex flex-row">
+					<a href={entry.repo}>
+						<div className="max-w-min rounded-full bg-primary-100 p-1 hover:bg-opacity-0">
+							<BsGithub aria-label="github repository" />
+						</div>
+					</a>
+					<a href={entry.url}>
+						<div className="ml-2 max-w-min rounded-full bg-primary-100 p-1 hover:bg-opacity-0">
+							<BiLink aria-label="endpoint" />
+						</div>
+					</a>
+				</div>
+			</td>
+		</tr>
 	);
 };
 

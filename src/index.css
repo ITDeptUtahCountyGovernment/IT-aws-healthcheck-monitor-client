@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tags */
+@layer base {
+	body {
+		/* @apply bg-slate-700 text-slate-300; */
+	}
+	h1 {
+		@apply text-4xl font-bold;
+	}
+	h2 {
+		@apply mb-4 text-2xl font-bold;
+	}
+	h3 {
+		@apply text-base font-medium;
+	}
+	a {
+		@apply text-primary-600;
+	}
+	th {
+		@apply px-6 py-3;
+	}
+	li,
+	td {
+		@apply px-6 py-4;
+	}
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Custom component classes */
+@layer components {
+	.menuItems {
+		@apply absolute right-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
+	}
+	.menuItem {
+		@apply w-full px-6 py-4 text-left text-sm;
+	}
+	.sidebarTab {
+		@apply w-full bg-white hover:bg-slate-50;
+	}
+}
+
+/* custom utility classes */
+@layer utilities {
 }
