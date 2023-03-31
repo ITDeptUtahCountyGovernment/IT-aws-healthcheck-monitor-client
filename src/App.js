@@ -13,7 +13,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios.get("https://ucapphealth.com").then((response) => {
+    axios.get("http://localhost:3000").then((response) => {
       response.data.data.map((entry) => {
         entry.status = entry.status === null ? "GOOD" : "FAILURE";
         if (entry.error && entry.error.includes("timeout of 30000ms exceeded"))
