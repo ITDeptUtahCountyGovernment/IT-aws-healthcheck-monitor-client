@@ -5,42 +5,62 @@
 /* Tags */
 @layer base {
 	body {
-		/* @apply bg-slate-700 text-slate-300; */
+		@apply box-border bg-slate-900 text-slate-400;
 	}
 	h1 {
-		@apply text-4xl font-bold;
+		@apply text-4xl font-bold text-gray-200;
 	}
 	h2 {
-		@apply mb-4 text-2xl font-bold;
+		@apply text-xl font-bold text-gray-200 md:text-2xl;
 	}
 	h3 {
 		@apply text-base font-medium;
 	}
-	a {
-		@apply text-primary-600;
-	}
 	th {
-		@apply px-6 py-3;
+		@apply px-3 py-2 md:px-6 md:py-3;
 	}
-	li,
+	li {
+		@apply cursor-pointer rounded-r-lg px-3 py-2 md:px-6 md:py-4;
+	}
 	td {
-		@apply px-6 py-4;
+		@apply px-3 py-2 md:px-6 md:py-4;
+	}
+	input {
+		@apply bg-transparent focus:outline-none;
+	}
+	hr,
+	header,
+	ul,
+	table,
+	tr,
+	td,
+	div {
+		@apply border-slate-800;
 	}
 }
 
 /* Custom component classes */
 @layer components {
 	.menuItems {
-		@apply absolute right-0 mt-2 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
+		@apply absolute left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-700 rounded-md bg-slate-800 shadow-lg ring-1  ring-opacity-5 focus:outline-none;
 	}
 	.menuItem {
-		@apply w-full px-6 py-4 text-left text-sm;
+		@apply w-full px-6 py-4 text-left text-sm hover:bg-slate-700;
 	}
 	.sidebarTab {
-		@apply w-full bg-white hover:bg-slate-50;
+		@apply w-full border-2 border-transparent hover:border-slate-400 hover:bg-slate-700;
 	}
 }
 
 /* custom utility classes */
 @layer utilities {
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* For IE, Edge and Firefox */
+	.scrollbar-hide {
+		-ms-overflow-style: none; /* IE and Edge */
+		scrollbar-width: none; /* Firefox */
+	}
 }

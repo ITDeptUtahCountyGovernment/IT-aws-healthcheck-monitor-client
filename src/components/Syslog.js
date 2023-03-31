@@ -5,12 +5,11 @@ const Syslog = props => {
 	return (
 		<div className="w-full text-xs ">
 			<div>
-				<h2>Stdout</h2>
+				<h2 className="mt-4">Stdout</h2>
 				<CodeBlock
 					text={props.syslog}
 					language="bash"
 					theme={dracula}
-					className="p-4"
 					customStyle={{
 						height: '300px',
 						overflow: 'scroll',
@@ -18,7 +17,7 @@ const Syslog = props => {
 				/>
 			</div>
 			<div>
-				<h2>Stderr</h2>
+				<h2 className="mt-4">Stderr</h2>
 				<CodeBlock
 					text={props.syslogerr}
 					language="bash"

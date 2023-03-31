@@ -2,17 +2,19 @@ import Status from './Status';
 
 const StatusCollection = props => {
 	return (
-		<table className=" mb-8 rounded-lg border-b border-l text-left dark:text-gray-400">
-			<thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+		<table className="w-full text-left text-xs text-gray-400 md:text-base">
+			<thead className="bg-slate-800 text-xs uppercase text-gray-200 ">
 				<tr>
-					<th scope="col">App Name</th>
+					<th scope="col">Apps ({props.data.length})</th>
 					<th scope="col">Status</th>
+					<th scope="col">Tier</th>
+					{props.showTeam && <th>Team</th>}
 					<th scope="col">Uptime</th>
 					<th scope="col">Links</th>
 				</tr>
 			</thead>
 			{props.data.map(entry => {
-				return entry.name === props.team && <Status entry={entry} key={entry.id} />;
+				return <Status entry={entry} key={entry.id} showTeam={props.showTeam} />;
 			})}
 		</table>
 	);

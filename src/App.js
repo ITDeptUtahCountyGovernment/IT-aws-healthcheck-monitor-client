@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { BsGithub } from 'react-icons/bs';
-import { BiMenu } from 'react-icons/bi';
+import { BiSearch } from 'react-icons/bi';
+import { MdArrowForwardIos } from 'react-icons/md';
 import axios from 'axios';
+
 import StatusCollection from './components/StatusCollection';
 import Syslog from './components/Syslog';
-import { Menu } from '@headlessui/react';
+import NavMenu from './components/NavMenu';
+import ContactPopover from './components/ContactPopover';
 
 // TODO: Replace with dynamic call
 const TEAMS = [
@@ -14,15 +19,21 @@ const TEAMS = [
 	{ name: 'Gold Team', lead: 'Nate Wilson', ext: '8464', email: 'nathanielw@utahcounty.gov' },
 ];
 
+const SYSLOG = -2;
+const ALL_TEAMS = -1;
+
 const App = () => {
+	const { tab } = useParams();
+
 	const [data, setData] = useState([]);
 	const [syslog, setSyslog] = useState('');
 	const [syslogerr, setSyslogerr] = useState('');
-	const [teamID, setTeamID] = useState(0);
+	const [teamID, setTeamID] = useState(-1);
 	const [teamstats, setTeamstats] = useState({});
+	const [searchInput, setSearchInput] = useState(null);
 
 	useEffect(() => {
-		axios.get('https://ucapphealth.com').then(response => {
+		axios.get('http://localhost:3000').then(response => {
 			response.data.data.map(entry => {
 				entry.status = entry.status === null ? 'GOOD' : 'FAILURE';
 				if (entry.error && entry.error.includes('timeout of 30000ms exceeded')) entry.status = 'WARNING';
@@ -34,7 +45,7 @@ const App = () => {
 			setSyslogerr(response.data.syslogerr);
 			updateTeamStat();
 		});
-	}, [teamID]);
+	}, [teamstats]);
 
 	const updateTeamStat = () => {
 		let newTeamStats = {};
@@ -51,99 +62,129 @@ const App = () => {
 		setTeamstats(newTeamStats);
 	};
 
-	const selectTeam = index => {
-		setTeamID(index);
+	const searchApp = e => {
+		setSearchInput(e.target.value);
+	};
+
+	const getFilteredData = keyword => {
+		return data.filter(entry => entry.title.toLowerCase().includes(keyword));
+	};
+
+	const selectTeam = () => {
+		if (tab === 'syslog') {
+			setTeamID(SYSLOG);
+		} else if (!tab) {
+			setTeamID(ALL_TEAMS);
+		}
+	};
+
+	const getCurrentNav = () => {
+		return tab
+			? tab
+					.toLowerCase()
+					.split('-')
+					.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+					.join(' ')
+			: 'All Apps';
+	};
+
+	const getDetailPanel = () => {
+		const currentNav = getCurrentNav();
+		if (searchInput && searchInput != '') {
+			return (
+				<div className="flex h-80v w-full  flex-col">
+					<div className="scrollbar-hide block w-full overflow-scroll rounded-lg border border-slate-800">
+						<StatusCollection data={getFilteredData(searchInput)} showTeam={true} />
+					</div>
+				</div>
+			);
+		}
+		if (currentNav === 'System Log') {
+			return (
+				<div className="flex w-full flex-col">
+					<Syslog syslog={syslog} syslogerr={syslogerr} />
+				</div>
+			);
+		}
+		if (currentNav === 'All Apps') {
+			return (
+				<div className="flex h-full w-full  flex-col">
+					<div className="scrollbar-hide block w-full overflow-scroll rounded-lg border  border-slate-800">
+						<StatusCollection data={data} showTeam={true} />
+					</div>
+				</div>
+			);
+		}
+		if (TEAMS.some(team => team.name === currentNav)) {
+			return (
+				<div className="flex h-full w-full  flex-col">
+					<div className="scrollbar-hide block w-full overflow-scroll rounded-lg border border-slate-800">
+						<StatusCollection data={data.filter(entry => entry.name === currentNav)} />
+					</div>
+				</div>
+			);
+		}
 	};
 
 	return (
-		<div className="container mx-auto p-6">
-			<div className="flex flex-row items-baseline justify-between">
-				<h2>UC App Health</h2>
-				{
-					<Menu as="div" className="relative inline-block pl-6 text-left lg:hidden">
-						<p>
-							<Menu.Button className="hover:text-primary-600">
-								<h2>
-									<BiMenu className="mx-2 inline" aria-hidden="true" />
-								</h2>
-							</Menu.Button>
-						</p>
-
-						<Menu.Items className="menuItems">
-							{TEAMS.map((team, index) => {
-								return (
-									<Menu.Item>
-										{({ active }) => (
-											<button onClick={() => selectTeam(index)} className={`${active && 'bg-slate-100 '} menuItem`}>
-												{team.name}
-												{teamstats[team.name] && teamstats[team.name].FAILURE > 0 && <span className="mx-2 max-w-min rounded-full bg-red-400 px-2 text-white">{teamstats[team.name].FAILURE}</span>}
-											</button>
-										)}
-									</Menu.Item>
-								);
-							})}
-							<hr></hr>
-							<hr></hr>
-							<Menu.Item>
-								<button onClick={() => setTeamID(-1)} className="menuItem">
-									System Log
-								</button>
-							</Menu.Item>
-							<Menu.Item>
-								<button className="menuItem">
-									<a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
-										Report any issues <BsGithub className="inline" aria-hidden="true" />
-									</a>
-								</button>
-							</Menu.Item>
-							<Menu.Item>
-								<button className="menuItem">
-									<a href="http://ucapphealth.com/db.sqlite">Download db.sqlite</a>
-								</button>
-							</Menu.Item>
-						</Menu.Items>
-					</Menu>
-				}
+		<div className="container mx-auto mt-20 h-screen p-6 ">
+			<div className="fixed left-0 top-0 z-10 w-full border-b bg-slate-900">
+				<div className=" container mx-auto flex flex-col items-baseline space-y-3 p-6 md:flex-row md:justify-between md:space-y-0">
+					<h2>
+						<NavMenu onTeamChange={selectTeam} teams={TEAMS} label="UC App Health" />
+						<MdArrowForwardIos className="mx-4 inline" />
+						{getCurrentNav()}
+					</h2>
+					<div className="mt- inline-flex w-full items-center rounded-full border-2 border-slate-500 bg-slate-700 px-2 py-1 md:w-80 ">
+						<BiSearch className="mx-1 fill-slate-500" />
+						<input name="searchBar" onChange={searchApp} value={searchInput} />
+					</div>
+				</div>
 			</div>
-			<hr className="mb-8"></hr>
 			<div className="flex w-full flex-row justify-between">
-				<ul className="container hidden w-max flex-col lg:flex lg:w-1/5">
-					<li>
-						<h3 className="pb-4">Teams</h3>
+				<ul className="hidden h-full w-max flex-col lg:flex lg:w-1/5">
+					<a href="/">
+						<li className={`sidebarTab rounded-lg ${teamID >= ALL_TEAMS && 'bg-slate-700 text-gray-200'}`}>
+							<h3 className={teamID === ALL_TEAMS && 'text-gray-200'}>All Teams</h3>
+						</li>
+					</a>
+					<li className="pt-0">
 						<ul className="border-l">
 							{TEAMS.map((team, index) => (
-								<li onClick={() => selectTeam(index)} key={index} className={`sidebarTab ${index === teamID && 'bg-slate-100'}`}>
-									{team.name}
-									{teamstats[team.name] && teamstats[team.name].FAILURE > 0 && <span className="mx-2 max-w-min rounded-full bg-red-400 px-2 text-white">{teamstats[team.name].FAILURE}</span>}
-								</li>
+								<a href={`/${team.name.replace(/\s+/g, '-')}`}>
+									<li onClick={() => selectTeam(index)} key={index} className={`sidebarTab ${index === teamID && 'bg-slate-800 text-gray-200'}`}>
+										{team.name}
+										{teamstats[team.name] && teamstats[team.name].FAILURE > 0 && <span className="mx-2 max-w-min rounded-full bg-red-500 px-2 font-bold text-black ">{teamstats[team.name].FAILURE}</span>}
+										{teamstats[team.name] && teamstats[team.name].WARNING > 0 && <span className="mx-2 max-w-min rounded-full bg-yellow-500 px-2 font-bold text-black ">{teamstats[team.name].WARNING}</span>}
+									</li>
+								</a>
 							))}
 						</ul>
 					</li>
-					<li onClick={() => setTeamID(-1)} className="sidebarTab">
-						<h3>System Log</h3>
-					</li>
+					<a href="/system-log">
+						<li onClick={() => setTeamID(SYSLOG)} className={`sidebarTab rounded-lg ${teamID === SYSLOG && 'bg-slate-700 text-gray-200'}`}>
+							<h3 className={teamID === SYSLOG && 'text-gray-200'}>System Log</h3>
+						</li>
+					</a>
 					<hr></hr>
 					<li>
-						<a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
-							Report any issues <BsGithub className="inline" aria-hidden="true" />
-						</a>
+						<h3>Developer Links</h3>
 					</li>
-					<li>
-						<a href="http://ucapphealth.com/db.sqlite">Download db.sqlite</a>
+					<li className="pt-0">
+						<ul className="border-l">
+							<li className="min-w-max">
+								<a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">
+									Report any issues <BsGithub className="inline" aria-hidden="true" />
+								</a>
+							</li>
+							<li className="min-w-max">
+								<a href="http://ucapphealth.com/db.sqlite">Download db.sqlite</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 
-				<div className="flex w-full flex-col lg:w-3/4">
-					<div className="mb-2 flex w-full items-baseline justify-between">
-						<h1 className="inline"> {teamID === -1 ? 'System Log' : TEAMS[teamID].name} </h1>
-					</div>
-					{!(teamID === -1) && (
-						<p className="mb-8">
-							{TEAMS[teamID].lead} (x{TEAMS[teamID].ext}) <a href="mailto:{this.state.entry.email}">{TEAMS[teamID].email}</a>
-						</p>
-					)}
-					{teamID === -1 ? <Syslog syslog={syslog} syslogerr={syslogerr} /> : <StatusCollection data={data} team={TEAMS[teamID].name} />}
-				</div>
+				<div className="flex w-full flex-col lg:w-3/4">{getDetailPanel()}</div>
 			</div>
 		</div>
 	);
