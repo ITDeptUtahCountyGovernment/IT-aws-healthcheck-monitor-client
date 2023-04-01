@@ -3,36 +3,32 @@ import { BsGithub } from 'react-icons/bs';
 const NavMenu = props => {
 	return (
 		<Menu as="div" className="relative inline-block text-left">
-			<p>
-				<Menu.Button>
-					<h2 className="hover:text-primary-500">{props.label}</h2>
-				</Menu.Button>
-			</p>
+			<Menu.Button className="hover:text-primary-500">{props.label}</Menu.Button>
 
 			<Menu.Items className="menuItems border-2 border-slate-400">
 				<Menu.Item>
-					<button onClick={() => props.onTeamChange(-1)} className="menuItem font-semibold ">
-						All Teams
-					</button>
+					<a href="/">
+						<button className="menuItem font-semibold ">All Teams</button>
+					</a>
 				</Menu.Item>
-				{props.teams.map((team, index) => {
+				{props.teams.map(team => {
 					return (
 						<Menu.Item>
-							{({ active }) => (
-								<button onClick={() => props.onTeamChange(index)} className="menuItem">
+							<button className="menuItem">
+								<a href={`/${team.name.replace(/\s+/g, '-')}`}>
 									{team.name}
-								</button>
-							)}
+									{props.teamstats[team.name] && props.teamstats[team.name].FAILURE > 0 && <span className="mx-2 max-w-min rounded-full bg-red-500 px-2 font-bold text-black ">{props.teamstats[team.name].FAILURE}</span>}
+									{props.teamstats[team.name] && props.teamstats[team.name].WARNING > 0 && <span className="mx-2 max-w-min rounded-full bg-yellow-500 px-2 font-bold text-black ">{props.teamstats[team.name].WARNING}</span>}
+								</a>
+							</button>
 						</Menu.Item>
 					);
 				})}
 				<Menu.Item>
-					<button onClick={() => props.onTeamChange(-2)} className="menuItem font-semibold ">
-						System Log
-					</button>
+					<a href="/system-log">
+						<button className="menuItem font-semibold ">System Log</button>
+					</a>
 				</Menu.Item>
-				<hr></hr>
-				<hr></hr>
 				<Menu.Item>
 					<button className="menuItem">
 						<a href="https://github.com/ITDeptUtahCountyGovernment/IT-aws-healthcheck-monitor-client/issues">

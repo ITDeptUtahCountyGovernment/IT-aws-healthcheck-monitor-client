@@ -5,7 +5,10 @@
 /* Tags */
 @layer base {
 	body {
-		@apply box-border bg-slate-900 text-slate-400;
+		@apply bg-slate-900 text-slate-400;
+	}
+	a {
+		@apply text-primary-500;
 	}
 	h1 {
 		@apply text-4xl font-bold text-gray-200;
@@ -45,10 +48,10 @@
 		@apply absolute left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-700 rounded-md bg-slate-800 shadow-lg ring-1  ring-opacity-5 focus:outline-none;
 	}
 	.menuItem {
-		@apply w-full px-6 py-4 text-left text-sm hover:bg-slate-700;
+		@apply w-full px-6 py-4 text-left text-sm text-slate-400 hover:bg-slate-700;
 	}
 	.sidebarTab {
-		@apply w-full border-2 border-transparent hover:border-slate-400 hover:bg-slate-700;
+		@apply w-full border-2 border-transparent text-slate-400 hover:border-slate-400 hover:bg-slate-700;
 	}
 }
 
