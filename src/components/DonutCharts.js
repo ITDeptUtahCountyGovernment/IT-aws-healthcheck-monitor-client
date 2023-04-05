@@ -2,34 +2,20 @@ import { PieChart } from 'react-minimal-pie-chart';
 
 const DonutCharts = props => {
 	return (
-		<div className="flex max-h-80 w-full justify-between">
+		<div className="flex max-h-80 w-full justify-between space-x-10">
 			<PieChart
 				data={[
-					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#3b82f6' },
+					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#10B981' },
 					{ title: 'WARNING', value: props.teamstats.WARNING, color: '#334155' },
 					{ title: 'FAILURE', value: props.teamstats.FAILURE, color: '#334155' },
 				]}
 				lineWidth="10"
 				rounded={true}
-				label={() => props.teamstats.GOOD}
+				label={() => props.teamstats.GOOD + ' GOOD'}
 				labelPosition="0"
 				labelStyle={{
-					fill: '#3b82f6',
-				}}
-				animate={true}
-			/>
-			<PieChart
-				data={[
-					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#334155' },
-					{ title: 'WARNING', value: props.teamstats.WARNING, color: '#eab308' },
-					{ title: 'FAILURE', value: props.teamstats.FAILURE, color: '#334155' },
-				]}
-				lineWidth="10"
-				rounded={true}
-				label={() => props.teamstats.WARNING}
-				labelPosition="0"
-				labelStyle={{
-					fill: '#eab308',
+					fill: '#10B981',
+					fontSize: '8pt',
 				}}
 				animate={true}
 			/>
@@ -41,10 +27,11 @@ const DonutCharts = props => {
 				]}
 				lineWidth="10"
 				rounded={true}
-				label={() => props.teamstats.FAILURE}
+				label={() => props.teamstats.FAILURE + ' FAIL'}
 				labelPosition="0"
 				labelStyle={{
 					fill: '#ef4444',
+					fontSize: '8pt',
 				}}
 				animate={true}
 			/>

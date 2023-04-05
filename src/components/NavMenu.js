@@ -1,9 +1,13 @@
 import { Menu } from '@headlessui/react';
 import { BsGithub } from 'react-icons/bs';
+import { MdHealthAndSafety } from 'react-icons/md';
 const NavMenu = props => {
 	return (
 		<Menu as="div" className="relative inline-block text-left">
-			<Menu.Button className="hover:text-primary-500">{props.label}</Menu.Button>
+			<Menu.Button className=" hover:text-primary-500">
+				<MdHealthAndSafety className="mr-2 inline" />
+				{props.label}
+			</Menu.Button>
 
 			<Menu.Items className="menuItems border-2 border-slate-400">
 				<Menu.Item>

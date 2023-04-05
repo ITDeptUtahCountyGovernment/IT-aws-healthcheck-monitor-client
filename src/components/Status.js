@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BsGithub, BsCheckCircleFill } from 'react-icons/bs';
-import { IoIosWarning, IoIosCloseCircle } from 'react-icons/io';
+import { IoIosCloseCircle } from 'react-icons/io';
 import { BiLink } from 'react-icons/bi';
 import { months } from '../utils/utils.js';
 import ContactPopover from './ContactPopover.js';
@@ -9,29 +9,40 @@ const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 
 const Status = props => {
 	const entry = props.entry;
-	const [showDetails, setShowDetails] = useState(false);
 
-	const getStatusIcon = () => {
+	const getStatus = () => {
 		switch (entry.status) {
 			case 'GOOD':
 				return (
-					<span className="inline-flex items-center rounded-full border-2 border-blue-500 bg-slate-800  px-2  py-1 text-xs text-blue-500">
-						<BsCheckCircleFill className=" mr-1 inline-block fill-blue-500" />
+					<span className="statusPill bg-emerald-500/25 text-emerald-500">
+						<BsCheckCircleFill className=" mr-1 inline-block fill-emerald-500" />
 						GOOD
-					</span>
-				);
-			case 'WARNING':
-				return (
-					<span className="inline-flex items-center rounded-full border-2 border-yellow-500 bg-slate-800  px-2  py-1 text-xs text-yellow-500">
-						<IoIosWarning className=" mr-1 inline-block fill-yellow-500" /> WARNING
 					</span>
 				);
 			case 'FAILURE':
 				return (
-					<span className="inline-flex items-center rounded-full border-2 border-red-500  bg-slate-800 px-2  py-1 text-xs text-red-500">
-						<IoIosCloseCircle className=" mr-1 inline-block fill-red-500" /> FAILURE
+					<span className="statusPill border-red-500 text-red-500">
+						<IoIosCloseCircle className=" mr-1 inline-block fill-red-500" />
+						FAILURE
 					</span>
 				);
+			default:
+				return '-';
+		}
+	};
+
+	const getClassification = () => {
+		if (!entry.classification) {
+			return '-';
+		}
+
+		switch (entry.classification) {
+			case 'unimportant':
+				return <span className="statusPill">unimportant</span>;
+			case 'important':
+				return <span className="statusPill">important</span>;
+			case 'critical':
+				return <span className="statusPill">critical</span>;
 		}
 	};
 
@@ -40,15 +51,11 @@ const Status = props => {
 		return `${months[since.getMonth()]} ${since.getDate()} ${since.getFullYear()}`;
 	};
 
-	const toggleDetails = () => {
-		setShowDetails(showDetails ? false : true);
-	};
-
 	return (
 		<tr className="hover:bg-slate-800">
+			<td>{getStatus()}</td>
 			<td>{entry.title}</td>
-			<td>{getStatusIcon()}</td>
-			<td>Critical</td>
+			<td>{getClassification()}</td>
 			{props.showTeam && (
 				<td>
 					<ContactPopover team={entry} />
@@ -57,10 +64,10 @@ const Status = props => {
 			<td>
 				<div className="flex flex-col">
 					<div id="percentBar" className="h-2 w-full bg-red-700">
-						<div className="mr-2 h-full bg-gradient-to-r from-cyan-500 to-blue-500 px-2" style={{ width: entry.uptime + '%' }}></div>
+						<div className="mr-2 h-full bg-gradient-to-r from-cyan-800 to-emerald-500 px-2" style={{ width: entry.uptime + '%' }}></div>
 					</div>
 					<p className="text-xs">
-						{entry.uptime.toFixed(2)}% <span className="hidden md:inline-block">since {getSince(entry.uptimeTrackingStart)}</span>
+						{entry.uptime && entry.toFixed(2)}% <span className="hidden md:inline-block">since {getSince(entry.uptimeTrackingStart)}</span>
 					</p>
 				</div>
 			</td>
