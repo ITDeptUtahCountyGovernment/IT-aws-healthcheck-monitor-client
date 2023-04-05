@@ -7,6 +7,9 @@
 	body {
 		@apply bg-slate-900 text-slate-400;
 	}
+	a {
+		@apply hover:text-primary-500;
+	}
 	h1 {
 		@apply text-4xl font-bold text-gray-200;
 	}
@@ -42,10 +45,10 @@
 /* Custom component classes */
 @layer components {
 	.statusPill {
-		@apply inline-flex items-center rounded-full bg-slate-800 px-2 py-1 text-xs;
+		@apply flex max-w-min items-center justify-center rounded-full bg-slate-800 px-2 py-1 text-xs;
 	}
 	.menuItems {
-		@apply absolute left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-700 rounded-md bg-slate-800 shadow-lg ring-1  ring-opacity-5 focus:outline-none;
+		@apply absolute left-0 z-10 mt-2 w-56 origin-top-left divide-y divide-gray-700 rounded-md bg-slate-800 focus:outline-none;
 	}
 	.menuItem {
 		@apply w-full px-6 py-4 text-left text-sm text-slate-400 hover:bg-slate-700;

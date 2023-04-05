@@ -5,7 +5,7 @@ const Syslog = props => {
 	return (
 		<div className="w-full text-xs ">
 			<div>
-				<h2 className="mt-4">Stdout</h2>
+				<h2 className="mb-2 mt-4">Stdout</h2>
 				<CodeBlock
 					text={props.syslog}
 					language="bash"
@@ -17,7 +17,7 @@ const Syslog = props => {
 				/>
 			</div>
 			<div>
-				<h2 className="mt-4">Stderr</h2>
+				<h2 className="mb-2 mt-8">Stderr</h2>
 				<CodeBlock
 					text={props.syslogerr}
 					language="bash"

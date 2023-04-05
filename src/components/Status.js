@@ -40,9 +40,9 @@ const Status = props => {
 			case 'unimportant':
 				return <span className="statusPill">unimportant</span>;
 			case 'important':
-				return <span className="statusPill">important</span>;
+				return <span className="statusPill bg-cyan-500/25 text-cyan-400">important</span>;
 			case 'critical':
-				return <span className="statusPill">critical</span>;
+				return <span className="statusPill bg-red-500/25 text-red-400">critical</span>;
 		}
 	};
 
@@ -67,7 +67,7 @@ const Status = props => {
 						<div className="mr-2 h-full bg-gradient-to-r from-cyan-800 to-emerald-500 px-2" style={{ width: entry.uptime + '%' }}></div>
 					</div>
 					<p className="text-xs">
-						{entry.uptime && entry.toFixed(2)}% <span className="hidden md:inline-block">since {getSince(entry.uptimeTrackingStart)}</span>
+						{entry.uptime && entry.uptime.toFixed(2)}% <span className="hidden md:inline-block">since {getSince(entry.uptimeTrackingStart)}</span>
 					</p>
 				</div>
 			</td>

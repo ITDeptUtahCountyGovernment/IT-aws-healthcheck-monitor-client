@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { BiSearch } from 'react-icons/bi';
-import { MdArrowForwardIos } from 'react-icons/md';
+import { MdArrowForwardIos, MdHealthAndSafety } from 'react-icons/md';
 import axios from 'axios';
 
 import StatusCollection from './components/StatusCollection';
@@ -12,8 +12,9 @@ import ContactPopover from './components/ContactPopover';
 import SideBar from './components/SideBar';
 import DonutCharts from './components/DonutCharts';
 
-// const URL = 'https://ucapphealth.com';
-const URL = 'http://localhost:3000';
+const URL = 'https://ucapphealth.com';
+// const URL = 'http://localhost:3000';
+
 // TODO: Replace with dynamic call
 const TEAMS = [
 	{
@@ -123,17 +124,17 @@ const App = () => {
 
 	const getDetailPanel = () => {
 		const currentNav = getCurrentNav();
-		if (searchInput && searchInput.length > 1) {
+		const searchKey = searchInput ? searchInput.trim().toLowerCase() : '';
+		if (searchKey.length > 1) {
 			return (
 				<div className="flex h-80v w-full  flex-col">
 					<div className="scrollbar-hide block w-full overflow-scroll rounded-lg border border-slate-800">
-						<StatusCollection data={getFilteredData(searchInput)} showTeam={true} />
+						<StatusCollection data={getFilteredData(searchKey)} showTeam={true} />
 					</div>
 				</div>
 			);
 		}
 		if (currentNav === 'System Log') {
-			console.log('syslog: ' + JSON.stringify(syslog));
 			return (
 				<div className="flex w-full flex-col">
 					<Syslog syslog={syslog} syslogerr={syslogerr} />
@@ -163,17 +164,17 @@ const App = () => {
 	};
 
 	return (
-		<div className="container mx-auto mt-20 h-screen p-6 ">
+		<div className="container mx-auto mt-20 p-6 pb-20">
 			<div className="fixed left-0 top-0 z-10 w-full border-b bg-slate-900 md:flex-row ">
-				<div className={`${searchInput === 's' && 'w-full flex-col'} container mx-auto flex items-baseline justify-between space-y-3 p-6 md:flex-row md:space-y-0 `}>
+				<div className={`${searchInput !== null && 'flex-col'} container mx-auto flex items-baseline justify-between space-y-3 p-6 md:flex-row md:space-y-0 `}>
 					<h2>
 						<NavMenu teams={teams} teamstats={teamstats} label="UC App Health" />
 						<MdArrowForwardIos className="mx-4 inline" />
 						{teams.some(team => team.name === getCurrentNav()) ? <ContactPopover team={teams.find(team => team.name === getCurrentNav())} /> : getCurrentNav()}
 					</h2>
-					<div className="inline-flex items-center rounded-full border-2 border-slate-500 bg-slate-700 px-2 py-1 md:w-80 ">
-						<BiSearch onClick={() => (searchInput === 's' ? setSearchInput('') : setSearchInput('s'))} className="mx-1 fill-slate-500" />
-						<input className={`${searchInput !== 's' && 'hidden '} md:inline`} name="searchBar" onChange={searchApp} value={searchInput} />
+					<div className={`inline-flex ${searchInput !== null && 'w-full'} items-center rounded-full border-2 border-slate-500 bg-slate-700 px-2 py-1 md:w-80 `}>
+						<BiSearch onClick={() => (searchInput ? setSearchInput(null) : setSearchInput(' '))} className="mx-1 fill-slate-500" />
+						<input className={`${searchInput === null && 'hidden '} w-full md:inline`} name="searchBar" onChange={searchApp} value={searchInput} />
 					</div>
 				</div>
 			</div>
