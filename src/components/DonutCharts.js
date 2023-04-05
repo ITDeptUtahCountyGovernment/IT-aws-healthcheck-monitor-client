@@ -2,7 +2,7 @@ import { PieChart } from 'react-minimal-pie-chart';
 
 const DonutCharts = props => {
 	return (
-		<div className="flex max-h-80 w-full justify-between space-x-10 px-6 md:px-0">
+		<div className="flex max-h-80 w-full justify-between space-x-10 px-3 md:px-0 md:px-6">
 			<PieChart
 				data={[
 					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#10B981' },

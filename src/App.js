@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { BiSearch } from 'react-icons/bi';
-import { MdArrowForwardIos, MdHealthAndSafety } from 'react-icons/md';
+import { MdArrowForwardIos } from 'react-icons/md';
+import { TfiClose } from 'react-icons/tfi';
 import axios from 'axios';
 
 import StatusCollection from './components/StatusCollection';
@@ -12,8 +13,8 @@ import ContactPopover from './components/ContactPopover';
 import SideBar from './components/SideBar';
 import DonutCharts from './components/DonutCharts';
 
-const URL = 'https://ucapphealth.com';
-// const URL = 'http://localhost:3000';
+// const URL = 'https://ucapphealth.com';
+const URL = 'http://localhost:3000';
 
 // TODO: Replace with dynamic call
 const TEAMS = [
@@ -164,17 +165,18 @@ const App = () => {
 	};
 
 	return (
-		<div className="container mx-auto mt-20 py-6 pb-20 md:p-6">
+		<div className="container mx-auto mt-10 p-3 pb-20 md:mt-20 md:p-6">
 			<div className="fixed left-0 top-0 z-10 w-full border-b bg-slate-900 md:flex-row ">
-				<div className={`${searchInput !== null && 'flex-col space-y-3'} container mx-auto flex items-baseline justify-between p-6 md:flex-row md:space-y-0 `}>
+				<div className={`${searchInput !== null && 'flex-col space-y-3'} container mx-auto flex items-baseline justify-between p-3 md:flex-row md:space-y-0 md:p-6 `}>
 					<h2>
 						<NavMenu teams={teams} teamstats={teamstats} label="UC App Health" />
 						<MdArrowForwardIos className="mx-4 inline" />
 						{teams.some(team => team.name === getCurrentNav()) ? <ContactPopover team={teams.find(team => team.name === getCurrentNav())} /> : getCurrentNav()}
 					</h2>
 					<div className={`inline-flex ${searchInput !== null && 'w-full'} items-center rounded-full border-2 border-slate-500 bg-slate-700 px-2 py-1 md:w-80 `}>
-						<BiSearch onClick={() => (searchInput ? setSearchInput(null) : setSearchInput(' '))} className="mx-1 fill-slate-500" />
-						<input className={`${searchInput === null && 'hidden '} w-full md:inline`} onBlur={() => setSearchInput(null)} name="searchBar" onChange={searchApp} value={searchInput} />
+						<BiSearch onClick={() => (searchInput ? setSearchInput(null) : setSearchInput(' '))} className="mx-1 cursor-pointer fill-slate-500 " />
+						<input className={`${searchInput === null && 'hidden '} w-full md:inline`} name="searchBar" onChange={searchApp} value={searchInput ? searchInput : ''} />
+						<TfiClose onClick={() => setSearchInput(null)} className={`${searchInput === null && 'hidden '} mx-2 cursor-pointer fill-slate-500 md:inline`} />
 					</div>
 				</div>
 			</div>
