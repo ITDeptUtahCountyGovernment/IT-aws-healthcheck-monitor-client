@@ -6,7 +6,6 @@ const DonutCharts = props => {
 			<PieChart
 				data={[
 					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#10B981' },
-					{ title: 'WARNING', value: props.teamstats.WARNING, color: '#334155' },
 					{ title: 'FAILURE', value: props.teamstats.FAILURE, color: '#334155' },
 				]}
 				lineWidth="10"
@@ -22,7 +21,6 @@ const DonutCharts = props => {
 			<PieChart
 				data={[
 					{ title: 'GOOD', value: props.teamstats.GOOD, color: '#334155' },
-					{ title: 'WARNING', value: props.teamstats.WARNING, color: '#334155' },
 					{ title: 'FAILURE', value: props.teamstats.FAILURE, color: '#ef4444' },
 				]}
 				lineWidth="10"
