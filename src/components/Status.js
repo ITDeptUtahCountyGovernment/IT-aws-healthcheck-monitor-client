@@ -1,6 +1,6 @@
 import React from 'react';
 import { BsGithub, BsCheckCircleFill } from 'react-icons/bs';
-import { IoIosCloseCircle } from 'react-icons/io';
+import { IoIosCloseCircle, IoIosWarning } from 'react-icons/io';
 import { BiLink } from 'react-icons/bi';
 import { months } from '../utils/utils.js';
 import ContactPopover from './ContactPopover.js';
@@ -14,22 +14,22 @@ const Status = props => {
 		switch (entry.status) {
 			case 'GOOD':
 				return (
-					<span className="statusPill bg-emerald-500/25 text-emerald-500">
-						<BsCheckCircleFill className=" mr-1 inline-block fill-emerald-500" />
+					<span className="statusPill bg-good/25 text-good">
+						<BsCheckCircleFill className=" mr-1 inline-block fill-good" />
 						GOOD
 					</span>
 				);
 			case 'FAILURE':
 				return (
-					<span className="statusPill bg-red-500/25 text-red-500">
-						<IoIosCloseCircle className=" mr-1 inline-block fill-red-500" />
+					<span className="statusPill bg-failure/25 text-failure">
+						<IoIosCloseCircle className=" mr-1 inline-block fill-failure" />
 						FAILURE
 					</span>
 				);
 			case 'WARNING':
 				return (
-					<span className="statusPill bg-yellow-300/25 text-yellow-300">
-						<IoIosCloseCircle className=" mr-1 inline-block fill-yellow-300" />
+					<span className="statusPill bg-warning/25 text-warning">
+						<IoIosWarning className=" mr-1 inline-block fill-warning" />
 						WARNING
 					</span>
 				);

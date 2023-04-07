@@ -11,6 +11,9 @@ module.exports = {
 			},
 			colors: {
 				primary: colors.emerald,
+				good: colors.emerald[500],
+				warning: colors.yellow[300],
+				failure: colors.red[500],
 			},
 			height: {
 				'10v': '10vh',
