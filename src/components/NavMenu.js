@@ -21,6 +21,7 @@ const NavMenu = props => {
 								<button className="menuItem">
 									{team.name}
 									{props.teamstats[team.name] && props.teamstats[team.name].GOOD > 0 && <span className="mx-2 max-w-min rounded-full bg-emerald-500 px-2 font-bold text-black ">{props.teamstats[team.name].GOOD}</span>}
+									{props.teamstats[team.name] && props.teamstats[team.name].WARNING > 0 && <span className="mx-2 max-w-min rounded-full bg-yellow-400 px-2 font-bold text-black ">{props.teamstats[team.name].WARNING}</span>}
 									{props.teamstats[team.name] && props.teamstats[team.name].FAILURE > 0 && <span className="mx-2 max-w-min rounded-full bg-red-500 px-2 font-bold text-black ">{props.teamstats[team.name].FAILURE}</span>}
 								</button>
 							</a>

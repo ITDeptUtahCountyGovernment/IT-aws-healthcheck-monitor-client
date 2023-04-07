@@ -21,9 +21,16 @@ const Status = props => {
 				);
 			case 'FAILURE':
 				return (
-					<span className="statusPill border-red-500 text-red-500">
+					<span className="statusPill bg-red-500/25 text-red-500">
 						<IoIosCloseCircle className=" mr-1 inline-block fill-red-500" />
 						FAILURE
+					</span>
+				);
+			case 'WARNING':
+				return (
+					<span className="statusPill bg-yellow-300/25 text-yellow-300">
+						<IoIosCloseCircle className=" mr-1 inline-block fill-yellow-300" />
+						WARNING
 					</span>
 				);
 			default:
