@@ -13,8 +13,8 @@ import ContactPopover from './components/ContactPopover';
 import SideBar from './components/SideBar';
 import DonutCharts from './components/DonutCharts';
 
-// const URL = 'https://ucapphealth.com';
-const URL = 'http://localhost:3000';
+const URL = 'https://ucapphealth.com';
+// const URL = 'http://localhost:3000';
 
 // TODO: Replace with dynamic call
 const TEAMS = [
