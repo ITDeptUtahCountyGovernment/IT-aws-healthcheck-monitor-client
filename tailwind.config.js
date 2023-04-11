@@ -10,7 +10,7 @@ module.exports = {
 				sans: ['Inter var', ...defaultTheme.fontFamily.sans],
 			},
 			colors: {
-				primary: colors.emerald,
+				primary: colors.yellow,
 				good: colors.emerald[500],
 				warning: colors.yellow[300],
 				failure: colors.red[500],

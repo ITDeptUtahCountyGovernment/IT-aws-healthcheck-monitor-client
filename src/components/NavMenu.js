@@ -17,7 +17,7 @@ const NavMenu = props => {
 				{props.teams.map(team => {
 					return (
 						<Menu.Item>
-							<a href={`/${team.name.replace(/\s+/g, '-')}`} className="block">
+							<a href={`/?show=${team.name.replace(/\s+/g, '-')}`} className="block">
 								<button className="menuItem">
 									{team.name}
 									{props.teamstats[team.name] && props.teamstats[team.name].GOOD > 0 && <span className="ml-2 max-w-min rounded-full bg-good px-2 font-bold text-black ">{props.teamstats[team.name].GOOD}</span>}
@@ -29,7 +29,7 @@ const NavMenu = props => {
 					);
 				})}
 				<Menu.Item>
-					<a href="/system-log" className="block">
+					<a href="/?show=system-log" className="block">
 						<button className="menuItem font-semibold ">System Log</button>
 					</a>
 				</Menu.Item>
