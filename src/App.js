@@ -76,7 +76,7 @@ const App = () => {
 				setTeams(TEAMS);
 			}
 		});
-	}, [teams]);
+	});
 
 	const updateTeamStat = () => {
 		let newTeamStats = {};
