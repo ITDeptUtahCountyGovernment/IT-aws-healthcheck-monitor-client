@@ -13,7 +13,8 @@ import SideBar from "./components/SideBar";
 import DonutCharts from "./components/DonutCharts";
 
 // const URL = 'https://healthcheck.utahcounty.gov';
-const URL = "http://localhost:3000";
+// const URL = "http://localhost:3000";
+const URL = process.env.REACT_APP_API_URL ?? "http://localhost:3000";
 
 // TODO: Replace with dynamic call
 const TEAMS = [
