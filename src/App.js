@@ -51,36 +51,39 @@ const App = () => {
   const tab = queryParams.get("show");
 
   const [teams, setTeams] = useState([]);
-  const [data, setData] = useState(fetchData() ?? []);
+  const [data, setData] = useState([]);
   const [syslog, setSyslog] = useState([]);
   const [syslogerr, setSyslogerr] = useState([]);
   const [teamstats, setTeamstats] = useState({});
   const [searchInput, setSearchInput] = useState(null);
 
-  function fetchData() {
-    axios.get(URL).then((response) => {
-      response.data.data.map((entry) => {
-        entry.status = entry.status === null ? "GOOD" : "FAILURE";
-        if (entry.error && entry.error.includes("timeout of 30000ms exceeded"))
-          entry.status = "WARNING";
-        return entry;
-      });
-      setData(response.data.data);
-      setSyslog(response.data.syslog);
-      setSyslogerr(response.data.syslogerr);
-      updateTeamStat();
-      if (response.data.teams) {
-        setTeams(response.data.teams);
-      } else {
-        setTeams(TEAMS);
-      }
-    });
-  }
   useEffect(() => {
+    function fetchData() {
+      axios.get(URL).then((response) => {
+        response.data.data.map((entry) => {
+          entry.status = entry.status === null ? "GOOD" : "FAILURE";
+          if (
+            entry.error &&
+            entry.error.includes("timeout of 30000ms exceeded")
+          )
+            entry.status = "WARNING";
+          return entry;
+        });
+        setData(response.data.data);
+        setSyslog(response.data.syslog);
+        setSyslogerr(response.data.syslogerr);
+        updateTeamStat();
+        if (response.data.teams) {
+          setTeams(response.data.teams);
+        } else {
+          setTeams(TEAMS);
+        }
+      });
+    }
     // Run Once Immediately
     fetchData();
-    // Then run it every 60,000 milliseconds (or 1 minute)
-    const intervalId = setInterval(fetchData, 60000);
+    // set interval for 60 seconds
+    const intervalId = setInterval(() => fetchData(), 60000);
 
     // Return a clean-up function to clear the interval when the component is unmounted
     return () => clearInterval(intervalId);
