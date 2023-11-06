@@ -13,6 +13,7 @@ import SideBar from "./components/SideBar";
 import DonutCharts from "./components/DonutCharts";
 
 const URL = process.env.REACT_APP_API_URL ?? "http://localhost:3000";
+//  const URL = "https:/healthcheck.utahcounty.gov"
 
 // TODO: Replace with dynamic call
 const TEAMS = [
@@ -72,7 +73,6 @@ const App = () => {
         setData(response.data.data);
         setSyslog(response.data.syslog);
         setSyslogerr(response.data.syslogerr);
-        updateTeamStat();
         if (response.data.teams) {
           setTeams(response.data.teams);
         } else {
@@ -90,6 +90,8 @@ const App = () => {
     // eslint-disable-next-line
   }, []); // Empty dependency array means this useEffect runs once when the component mounts
 
+
+
   const updateTeamStat = () => {
     let newTeamStats = {};
     data.forEach((entry) => {
@@ -104,6 +106,10 @@ const App = () => {
     });
     setTeamstats(newTeamStats);
   };
+
+  useEffect(() => {
+    updateTeamStat();
+  }, [data])
 
   const getAllTeamsStat = () => {
     let stat = {
