@@ -109,6 +109,7 @@ const App = () => {
 
   useEffect(() => {
     updateTeamStat();
+    // eslint-disable-next-line
   }, [data])
 
   const getAllTeamsStat = () => {
